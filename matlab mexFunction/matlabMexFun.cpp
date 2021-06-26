@@ -10,8 +10,8 @@
 #include "mex.h"
 #include "mat.h"
 #include "matrix.h"
-
 #define EXPORTED_FUNCTION __declspec(dllexport)
+// #include "getimage.h"
 
 #define image_width 256
 #define image_height 210
@@ -20,9 +20,14 @@ int cx = image_width, cy = image_height;
 WCHAR * szName =(WCHAR * ) L"War3ImageFileMapping";
 
 int outvar = 3;
-
+int captureTID;
 char img[10] = {'\x12', '\x13', '\x14', '\x15', '\x16', 1, 2, 3, 4, 5};
 
+// EXPORTED_FUNCTION unsigned int myFindWin(char *winClass,char *winName)
+// {
+//     HWND hwin = FindWindowA(  (LPCSTR) winClass, (LPCSTR) winName );
+//     return hwin ;
+// }
 
 EXPORTED_FUNCTION void initReceiveFun(double x ,double z)
 {
@@ -32,15 +37,15 @@ EXPORTED_FUNCTION void initReceiveFun(double x ,double z)
     OpenClipboard(NULL);
     HGLOBAL hMem = GetClipboardData(CF_TEXT);
     LPDWORD lpMem= (DWORD *)GlobalLock(hMem);
-    printf("\n(%d) (%d)\n(%d) (%d)",*lpMem,*(lpMem+1)) ;
-    printf("\n(%x) (%x) (%x) (%x)",lpMem2,lpMem2+1,lpMem2+2,lpMem2+3) ;
-    captureTID=*(lpMem+1);
-    outvar = *lpMem;
+    mexPrintf("(%d) (%d)",*lpMem,*(lpMem+1)) ;
+    
+    captureTID = *lpMem;
+    outvar = *(lpMem+1);
     GlobalUnlock(hMem);
     CloseClipboard();
 }
 
-
+        
 void mexFunction(int nlhs, mxArray *plhs[], int nrhs, const mxArray *prhs[])
 {
     double *datap;
@@ -95,7 +100,7 @@ void mexFunction(int nlhs, mxArray *plhs[], int nrhs, const mxArray *prhs[])
                 pimageOut[i * cy + j + k * cx * cy] = pBuf[(j * cx + i) * 3 + 2 - k];
             }
 
-    MessageBox(NULL, L"aaaa", L"Process2", MB_OK);
+//     MessageBox(NULL, L"information", L"title", MB_OK);
 
     UnmapViewOfFile(pBuf);
     CloseHandle(hMapFile);
@@ -103,12 +108,4 @@ void mexFunction(int nlhs, mxArray *plhs[], int nrhs, const mxArray *prhs[])
     mexPrintf("outvar(end)= %d\n", outvar);
 }
 
-int main(int argc, char *argv[])
-{
-    SetConsoleOutputCP(65001);
-    printf("Character 数据文件名和MAT文件名称 Character\n");
-    getchar();
-    getchar();
-    getchar();
-    return 0;
-}
+
