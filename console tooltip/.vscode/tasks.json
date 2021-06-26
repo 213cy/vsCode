@@ -1,0 +1,29 @@
+{
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "type": "shell",
+            "label": "cpp => exe",
+            "command": "gcc",
+            "args": [
+                "-g",
+                "-fexec-charset=GBK",   // 处理mingw中文编码问题
+                // "-fexec-charset=UTF-8",   // 处理mingw中文编码问题
+                "-finput-charset=UTF-8",// 处理mingw中文编码问题
+                "-ostarthook.exe",
+                "starthook.cpp",
+                // "-lComctl32",
+            ],
+            "options": {
+                "cwd": "${workspaceFolder}"
+            },
+            "problemMatcher": [
+                "$gcc"
+            ],
+            "group": {
+                "kind": "build",
+                "isDefault": true
+            }
+        },
+    ]
+}

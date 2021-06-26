@@ -1,0 +1,59 @@
+{
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "type": "shell",
+            "label": "compiler",
+            "command": "gcc",
+            "args": [
+                "-omatlabMexFun.exe",
+                "-g",
+                "matlabMexFun.cpp",
+                "-I",
+                "D:\\MATLAB\\R2017b\\extern\\include",
+                "-L",
+                "D:\\MATLAB\\R2017b\\extern\\lib\\win64\\mingw64",
+                "-llibmat",
+                "-llibmx",
+                "-llibmex",
+            ],
+            "options": {
+                "cwd": "${workspaceFolder}"
+            },
+            "problemMatcher": [
+                "$gcc"
+            ],
+            "group": {
+                "kind": "build",
+                "isDefault": true
+            }
+        },
+        {
+            "type": "shell",
+            "label": "backup",
+            "command": "gcc",
+            "args": [
+                "-g",
+                "matlabMexFun.cpp",
+                "-I",
+                "D:\\MATLAB\\R2017b\\extern\\include",
+                "-L",
+                "D:\\MATLAB\\R2017b\\extern\\lib\\win64\\mingw64",
+                "-l",
+                "libmat",
+                "-l",
+                "libmx",
+                "-o",
+                "matlabMexFun.exe"
+            ],
+            "options": {
+                "cwd": "${workspaceFolder}"
+            },
+            "problemMatcher": [
+                "$gcc"
+            ],
+            "group": "build"  
+        }
+        
+    ]
+}

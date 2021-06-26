@@ -1,0 +1,30 @@
+{
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "type": "shell",
+            "label": "main build",
+            "command": "gcc",
+            "args": [
+                "-g",
+                "-o",
+                "capture.exe",
+                "callbacks.c",
+                "capture.c",
+                "-lgdi32",
+                // "-Wl,--subsystem,windows"
+            ],//-municode
+            "options": {
+                "cwd": "${workspaceFolder}"
+            },
+            "problemMatcher": [
+                "$gcc"
+            ],
+            "group": {
+                "kind": "build",
+                "isDefault": true
+            },
+        },
+        
+    ]
+}

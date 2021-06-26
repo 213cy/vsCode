@@ -1,0 +1,41 @@
+#pragma code_page(65001)
+
+#include <windows.h>
+#include "resource.h"
+
+
+STRINGTABLE
+{
+    IDS_APP_TITLE,   "桌面截图"
+    IDC_GDICAPTURINGANIMAGE, "Goodbye"
+} 
+
+
+// Win32 application icon.
+IDI_GDICAPTURINGANIMAGE ICON                       "Application.ico"
+IDI_SMALL ICON                       "Application.ico"
+
+
+IDR_MAINMENU MENU
+{
+     MENUITEM "&Exit", 40001
+     MENUITEM "&About", 40002
+}
+
+// Our "about" dialog.
+IDD_ABOUTBOX DIALOGEX 0, 0, 147, 67
+STYLE DS_SETFONT | DS_MODALFRAME | DS_FIXEDSYS | WS_POPUP | WS_CAPTION | WS_SYSMENU
+CAPTION "About"
+FONT 10, "MS Shell Dlg", 400, 0, 0x1
+BEGIN
+  ICON             IDI_SMALL,IDC_STATIC,7,7,20,20
+  LTEXT            "Win32 测试 application.",IDC_STATIC,34,7,86,8
+  LTEXT            "©2016 Transmission Zero",IDC_STATIC,34,27,86,8
+  DEFPUSHBUTTON    "OK",IDOK,90,46,50,14,WS_GROUP
+END
+
+// Our accelerators.
+IDA_GDICAPTURINGANIMAGE  ACCELERATORS
+BEGIN
+  "a",             IDM_ABOUT //,      ;VIRTKEY, ALT, NOINVERT
+END

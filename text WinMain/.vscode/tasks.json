@@ -1,0 +1,27 @@
+{
+	"version": "2.0.0",
+	"tasks": [
+		{
+			"type": "shell",
+			"label": "winMain exe",
+			"command": "gcc",
+			"args": [
+                "-g",
+				"-o",
+				"aaa.exe",
+				// "-Wl,-subsystem,windows",
+				"aaa.cpp",
+				
+			],//,	"-municode" 			
+			"problemMatcher": [
+				"$gcc"
+			],
+			"group": {
+				"kind":"build",
+				"isDefault": true
+			},
+			"detail": "--- main ---"
+		}
+	]
+
+}

@@ -1,0 +1,99 @@
+{
+	"version": "2.0.0",
+	"tasks": [
+		{
+			"type": "shell",
+			"label": "main build",
+			"command": "gcc.exe",
+			"args": [
+				"-g",
+				"-o",
+				"myapplication.exe",
+				"test.o",
+				"resource.o",
+                "callbacks.o",
+                "-lwinmm",
+				//"-s", // -s 去掉符号,无法调试,但是文件更小?
+				"-Wl,--subsystem,windows"
+			],//"-municode",				"-lcomctl32",
+			"options": {
+				"cwd": "${workspaceFolder}"
+			},
+			"problemMatcher": [
+				"$gcc"
+			],
+			"group": {
+				"kind": "build",
+				"isDefault": true
+			},
+			"dependsOn": [
+				"test build",
+				"callback build",
+				"resource build"
+			]
+		},
+		{
+			"type": "shell",
+			"label": "test build",
+			"command": "gcc",
+			"args": [
+				"-g",
+				"-c",
+				"test.c",
+				"-o",
+				"test.o",
+				"-D",
+				"UNICODE",
+				"-D",
+				"_UNICODE"				
+			],//"-municode",
+			"options": {
+				"cwd": "${workspaceFolder}"
+			},
+			"problemMatcher": [
+				"$gcc"
+			],
+			"group": "build"
+		},
+		{
+			"type": "shell",
+			"label": "resource build",
+			"command": "windres",
+			"args": [
+				"-i",
+				"resource.rc",
+				"-c",
+				"65001",
+				"-o",
+				"resource.o"
+			],
+			"options": {
+				"cwd": "${workspaceFolder}"
+			},
+			"problemMatcher": [
+				"$gcc"
+			],
+			"group": "build"
+		},
+		{
+			"type": "shell",
+			"label": "callback build",
+			"command": "gcc",
+			"args": [
+				"-g",
+				"-c",
+				"callbacks.c",
+				"-o",
+				"callbacks.o",
+				"-municode"
+			],
+			"options": {
+				"cwd": "${workspaceFolder}"
+			},
+			"problemMatcher": [
+				"$gcc"
+			],
+			"group": "build"
+		}
+	]
+}

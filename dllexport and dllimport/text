@@ -1,0 +1,46 @@
+local p = {}
+function p.listLibraries( frame )
+	local wrapper = mw.html.create( 'div' )
+	local ul
+	local ul2
+
+	local mwNames = {}
+	for name, functions in pairs ( mw ) do
+		table.insert( mwNames, name )
+	end
+
+	table.sort( mwNames, name )
+
+	for _, name in pairs ( mwNames ) do
+		-- MediaWiki librarie
+		wrapper:tag( 'h2' ):wikitext( name )
+		if type(mw[ name ]) == 'table'  then
+			ul = wrapper:tag( 'ul' )
+			for functionname, __ in pairs ( mw[ name ] ) do
+
+			    if type(mw[ name ][ functionname ]) == 'function'  then
+				ul:tag( 'li' ):wikitext( 'mw.' .. name .. '.' .. functionname .. '()' )
+			    elseif type(mw[ name ][ functionname ]) == 'number'  then
+				ul:tag( 'li' ):wikitext( 'mw.' .. name .. '.' .. functionname .. '=' .. (mw[ name ][ functionname ]) )
+			    elseif type(mw[ name ][ functionname ]) == 'string'  then
+				ul:tag( 'li' ):wikitext( 'mw.' .. name .. '.' .. functionname .. '="' .. (mw[ name ][ functionname ]) .. '"' )
+			    elseif type(mw[ name ][ functionname ]) == 'table'  then
+                                ul2 = ul:tag( 'li' ):tag( 'ul' )
+                                for k, _ in pairs ( mw[ name ][ functionname ] ) do
+					ul2:tag( 'li' ):wikitext( 'mw.' .. name .. '.' .. functionname .. '.' .. k)
+                                end
+                            else	
+                                ul:tag( 'li' ):wikitext( 'mw.' .. name .. '.' .. functionname .. '&mdash;&mdash;' .. type(mw[ name ][ functionname ]) )		    
+                            end
+ 
+		        end
+                end
+		if type(mw[ name ]) == 'function'  then
+		    wrapper:wikitext( 'mw.' .. name .. '()'  )
+		end
+
+	end
+
+	return wrapper:done()
+end
+return p

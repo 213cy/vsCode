@@ -1,0 +1,67 @@
+{
+	"version": "2.0.0",
+	"tasks": [
+		{
+			"type": "shell",
+			"label": "o 2 exe",
+			"command": "g++",
+			"args": [
+				"-g",
+				"${fileBasenameNoExtension}.o",
+				"-o",
+				"${fileBasenameNoExtension}64.exe"				
+			],//"-municode"
+			"dependsOn":["c 2 o"],
+			"problemMatcher": [
+				"$gcc"
+			],
+			"group": "build",
+			"detail": "目标文件到可执行文件"
+		},
+		{
+			"type": "shell",
+			"label": "c 2 o",
+			"command": "g++",
+			"args": [
+				"-D", 
+				"_UNICODE",
+				"-g",
+				"-c",
+				"${file}",
+				"-o",
+				"${fileBasenameNoExtension}.o",
+				"-municode"
+			],
+			"problemMatcher": [
+				"$gcc"
+			],
+			"group": "build",
+			"detail": "源文件到目标文件"
+		},
+
+		{
+			"type": "shell",
+			"label": "c 2 exe",
+			"command": "gcc",
+			"args": [
+				"-g",
+				"bbb.cpp",
+				"-o",
+				"bbb.exe"
+			],//"-municode" "-Wl,-subsystem,windows  -lmingw32"
+			"options": {
+				"cwd": "${workspaceFolder}"
+			},
+			"problemMatcher": [
+				"$gcc"
+			],
+			"group": {
+				"kind":"build",
+				"isDefault": true
+			},
+			"detail": 	"main",
+		
+		}
+	]
+
+}

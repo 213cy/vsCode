@@ -1,0 +1,60 @@
+{
+	"version": "2.0.0",
+	"tasks": [
+		{
+			"type": "shell",
+			"label": "obj 2 exe",
+			"command": "gcc",
+			"args": [
+				"-o",
+				"${fileBasenameNoExtension}.exe",
+				"-Wl,-subsystem,windows",
+				"${fileBasenameNoExtension}.o",
+				"resource.o",
+				"-municode" 
+			],//,				
+			"dependsOn":["build obj"],
+			"problemMatcher": [
+				"$gcc"
+			],
+			"group": {
+				"kind":"build",
+				"isDefault": true
+			},
+			"detail": "--- main ---"
+		},
+		{
+			"type": "shell",
+			"label": "build obj",
+			"command": "gcc",
+			"args": [
+				"-g",
+				"-c",
+				"${file}",
+				"-o",
+				"${fileBasenameNoExtension}.o"
+			],//,"-municode"
+				
+			"problemMatcher": [
+				"$gcc"
+			],
+			"group": "build",
+		},
+		{
+			"type": "shell",
+			"label": "windres resource",
+			"command": "windres",
+			"args": [
+				"-i",
+				"errorshow.rc",
+				"-o",
+				"resource.o",
+			],
+			"problemMatcher": [
+				"$gcc"
+			],
+			"group": "build",
+		}
+	]
+
+}

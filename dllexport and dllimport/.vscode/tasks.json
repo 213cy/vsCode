@@ -1,0 +1,103 @@
+{
+	"version": "2.0.0",
+	"tasks": [
+		{
+			"type": "shell",
+			"label": "dll.cpp => obj",
+			"command": "g++",
+			"args": [
+				"-c",
+				"-DBUILDING_EXAMPLE_DLL",
+				"example_dll.cpp"
+			],
+			"options": {
+				"cwd": "${workspaceFolder}"
+			},
+			"problemMatcher": [
+				"$gcc"
+			],
+			"group": "build"
+		},
+		{
+			"type": "shell",
+			"label": "dll.obj => dll",
+			"command": "g++",
+			"args": [
+				"-shared",
+				"-o",
+				"example_dll2.dll",
+				"-Wl,--out-implib,libexample_dll2.a",
+				"example_dll.o"
+			],
+			"dependsOn": [
+				"dll.cpp => obj"
+			],
+			"options": {
+				"cwd": "${workspaceFolder}"
+			},
+			"problemMatcher": [
+				"$gcc"
+			],
+			"group": "build"
+		},
+		{
+			"type": "shell",
+			"label": "dll.cpp => dll",
+			"command": "g++",
+			"args": [
+				"-o",
+				"example_dll.dll",
+				"-DBUILDING_EXAMPLE_DLL",
+				"-shared",
+				"-Wl,--out-implib,example_dll.lib",
+				"example_dll.cpp"
+			],
+			"problemMatcher": [
+				"$gcc"
+			],
+			"group": "build"
+		},
+		{
+			"type": "shell",
+			"label": "cpp+dll => exe",
+			"command": "g++",
+			"args": [
+				"-o",
+				"example_exe.exe",
+				"-g",
+				"example_exe.cpp",
+				"example_dll.dll"
+			],
+			"dependsOn": [
+				"dll.cpp => dll"
+			],
+			"options": {
+				"cwd": "${workspaceFolder}"
+			},
+			"problemMatcher": [
+				"$gcc"
+			],
+			"group": "build"
+		},
+		{
+			"type": "shell",
+			"label": "cpp + lib => exe",
+			"command": "g++.exe",
+			"args": [
+				"-oexample_exe2.exe",
+				"-g",
+				"example_exe.cpp",
+				"-L.",
+				//"-lexample_dll2", // 这两个都可以
+				"-lexample_dll" // 这两个都可以
+			],
+			"options": {
+				"cwd": "${workspaceFolder}"
+			},
+			"problemMatcher": [
+				"$gcc"
+			],
+			"group": "build"
+		}
+	]
+}

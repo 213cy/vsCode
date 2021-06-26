@@ -1,0 +1,58 @@
+{
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "type": "shell",
+            "label": "compiler",
+            "command": "gcc",
+            "args": [
+                "-omyframe2mat.exe",
+                "-g",
+                "myframe2mat.cpp",
+                "-I",
+                "D:\\MATLAB\\R2017b\\extern\\include",
+                "-L",
+                "D:\\MATLAB\\R2017b\\extern\\lib\\win64\\mingw64",
+                "-llibmat",
+                "-llibmx",
+            ],
+            "options": {
+                "cwd": "${workspaceFolder}"
+            },
+            "problemMatcher": [
+                "$gcc"
+            ],
+            "group": {
+                "kind": "build",
+                "isDefault": true
+            }
+        },
+        {
+            "type": "shell",
+            "label": "backup",
+            "command": "gcc",
+            "args": [
+                "-g",
+                "myframe2mat.cpp",
+                "-I",
+                "D:\\MATLAB\\R2017b\\extern\\include",
+                "-L",
+                "D:\\MATLAB\\R2017b\\extern\\lib\\win64\\mingw64",
+                "-l",
+                "libmat",
+                "-l",
+                "libmx",
+                "-o",
+                "myframe2mat.exe"
+            ],
+            "options": {
+                "cwd": "${workspaceFolder}"
+            },
+            "problemMatcher": [
+                "$gcc"
+            ],
+            "group": "build"  
+        }
+        
+    ]
+}

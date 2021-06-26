@@ -1,0 +1,74 @@
+{
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "type": "shell",
+            "label": "main build",
+            "command": "gcc.exe",
+            "args": [
+                "-g",
+                "-o",
+                "capture.exe",
+                "resource.o",
+                "capture.o",
+                "-lgdi32",
+                "-Wl,--subsystem,windows"
+            ],//-s -municode
+            "options": {
+                "cwd": "${workspaceFolder}"
+            },
+            "problemMatcher": [
+                "$gcc"
+            ],
+            "group": {
+                "kind": "build",
+                "isDefault": true
+            },
+            "dependsOn": [
+                "winmain build",
+                "resource build"
+            ]
+        },
+        {
+            "type": "shell",
+            "label": "winmain build",
+            "command": "gcc",
+            "args": [
+                "-g",
+                "-c",
+                "capture.cpp",
+                "-o",
+                "capture.o",
+                "-D",
+                "UNICODE",
+                "-D",
+                "_UNICODE"
+            ],
+            "options": {
+                "cwd": "${workspaceFolder}"
+            },
+            "problemMatcher": [
+                "$gcc"
+            ],
+            "group": "build"
+        },
+        {
+            "type": "shell",
+            "label": "resource build",
+            "command": "windres",
+            "args": [
+                "-i",
+                "resource.rc",
+                "-o",
+                "resource.o"
+            ],
+            "options": {
+                "cwd": "${workspaceFolder}"
+            },
+            "problemMatcher": [
+                "$gcc"
+            ],
+            "group": "build"
+        }
+    ]
+}
