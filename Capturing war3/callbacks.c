@@ -34,6 +34,8 @@ HANDLE hMapFile;
 char *lpwar3image;
 char *lpbitmap;
 
+HANDLE hCaptureDoneEvent;
+
 void initCapture()
 {
     hWndScreen = FindWindow(L"OsWindow", L"Warcraft III");
@@ -100,6 +102,13 @@ void initCapture()
         CloseHandle(hMapFile);
     }
 
+    hCaptureDoneEvent = CreateEvent(
+        NULL,                 // default security attributes
+        FALSE,                // manual-reset event
+        TRUE,                 // initial state is nonsignaled
+        L"CaptureDoneEvent"); // object name
+    printf("CreatedEvent : (%x)\n", hCaptureDoneEvent);
+
     // Starting with 32-bit Windows, GlobalAlloc and LocalAlloc are implemented as wrapper functions that
     // call HeapAlloc using a handle to the process's default heap. Therefore, GlobalAlloc and LocalAlloc
     // have greater overhead than HeapAlloc.
@@ -116,6 +125,7 @@ void endCapture()
 
     UnmapViewOfFile(lpwar3image);
     CloseHandle(hMapFile);
+    CloseHandle(hCaptureDoneEvent);
 
     DeleteObject(hPen);
 
@@ -175,6 +185,7 @@ int CaptureAnImage(HWND hWndxxx)
     GetDIBits(hdcMemDC, hbmScreen, 0, (UINT)cy,
               lpbitmap, (BITMAPINFO *)&bi, DIB_RGB_COLORS);
     printf("\n # # # bi.biBitCount(%d)  bi.biSizeImage(%d).", bi.biBitCount, bi.biSizeImage);
+    SetEvent(hCaptureDoneEvent);
 
     FILE *file;
     fopen_s(&file, "data.bin", "wb");

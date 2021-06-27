@@ -11,6 +11,7 @@
 // #include "resource.h"
 
 #define IDT_TIMER 0
+#define WAITFORCAPTUER_THREAD_MSG WM_USER + 100
 
 VOID CALLBACK MyTimerProc(
     HWND hwnd,    // handle to window for timer messages
@@ -76,9 +77,9 @@ DWORD WINAPI newThread(LPVOID lpParam)
             }
             continue;
         }
-        if (msg.message == WM_CHAR) //WM_KEYDOWN
+        if (msg.message == WAITFORCAPTUER_THREAD_MSG) 
         {
-            printf("WM_CHAR message\n");
+            printf("WAITFORCAPTUER_THREAD_MSG message\n");
             continue;
         }
     }
@@ -105,6 +106,7 @@ int main()
         0,         // use default creation flags
         &TID);     // returns the thread identifier
     CloseHandle(hThreadCmd);
+
 
     OpenClipboard(NULL);
     EmptyClipboard();
