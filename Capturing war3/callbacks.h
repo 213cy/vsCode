@@ -1,9 +1,6 @@
 #include <windows.h>
 
-HWND hWndScreen;
-
-int CaptureAnImage(HWND hWnd);
-void CaptureAnImage2();
-void initCapture();
+HWND initCapture();
 void endCapture();
-void AutoPilot(WORD x,WORD y, UINT WinM);
+int CaptureAnImage(int parm1);
+void ImageSave();
