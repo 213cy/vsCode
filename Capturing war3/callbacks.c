@@ -12,9 +12,10 @@
 #define image_width 256
 #define image_height 210
 
-// int mapx = 255, mapy = 210;
-int mapx = image_width, mapy = image_height;
-int mapx1, mapy1;
+// int cx = 255, cy = 210;
+int cx = image_width, cy = image_height;
+int cx1, cy1;
+
 
 HWND hWndScreen;
 HDC hdcScreen;
@@ -40,15 +41,15 @@ HWND initCapture()
     if (hWndScreen == NULL)
     {
         // hWndScreen = GetDesktopWindow();
-        mapx1 = 133, mapy1 = 581;
+        cx1 = 133, cy1 = 581;
     }
     else
-        mapx1 = 133, mapy1 = 681;
+        cx1 = 133, cy1 = 681;
 
     // Retrieve the device context handle to get the client area of war3 window.
     hdcScreen = GetWindowDC(hWndScreen); // hdcScreen = GetDC(hWndScreen);
     // Create a compatible bitmap from the Window DC.
-    hbmScreen = CreateCompatibleBitmap(hdcScreen, mapx, mapy);
+    hbmScreen = CreateCompatibleBitmap(hdcScreen, cx, cy);
     // Create a compatible DC, which is used in a BitBlt from the window DC.
     hdcMemDC = CreateCompatibleDC(hdcScreen);
     // Select the compatible bitmap into the compatible memory DC.
@@ -57,20 +58,20 @@ HWND initCapture()
     hPen = CreatePen(PS_SOLID, 1, RGB(0, 255, 0));
 
     bi.biSize = sizeof(BITMAPINFOHEADER);
-    bi.biWidth = mapx;
+    bi.biWidth = cx;
     //  If biHeight is negative, the bitmap is a top-down DIB
     // and its origin is the upper-left corner.
-    bi.biHeight = -mapy; // -mapy
+    bi.biHeight = -cy; // -cy
     bi.biPlanes = 1;
-    bi.biBitCount = 24; // try 24 and 3 * mapx * mapy;
+    bi.biBitCount = 24; // try 24 and 3 * cx * cy;
     bi.biCompression = BI_RGB;
 
     // GetDIBits remarks: "The scan lines must be aligned on a DWORD ..."
     // See https://docs.microsoft.com/en-us/windows/win32/api/wingdi/nf-wingdi-getdibits#remarks
-    // 即需要保证 (mapx * bi.biBitCount / 32) 为一个整数
-    // 当 bi.biBitCount=24 时,要求mapx能被4整除
-    // 综合考虑 令 mapx =256
-    dwBmpSize = 3 * mapx * mapy; // bi.biBitCount/8 =3
+    // 即需要保证 (cx * bi.biBitCount / 32) 为一个整数
+    // 当 bi.biBitCount=24 时,要求cx能被4整除
+    // 综合考虑 令 cx =256
+    dwBmpSize = 3 * cx * cy; // bi.biBitCount/8 =3
 
     hMapFile = CreateFileMapping(
         INVALID_HANDLE_VALUE, // use paging file
@@ -116,19 +117,19 @@ int CaptureAnImage(int parm1)
 {
 
     HGDIOBJ hPenOld = SelectObject(hdcScreen, hPen);
-    MoveToEx(hdcScreen, mapx1 - 1, mapy1 - 1, (LPPOINT)NULL);
-    LineTo(hdcScreen, mapx1 - 1, mapy1 + 1 + mapy);
-    LineTo(hdcScreen, mapx1 + 1 + mapx, mapy1 + 1 + mapy);
-    LineTo(hdcScreen, mapx1 + 1 + mapx, mapy1 - 1);
-    LineTo(hdcScreen, mapx1 - 1, mapy1 - 1);
+    MoveToEx(hdcScreen, cx1 - 1, cy1 - 1, (LPPOINT)NULL);
+    LineTo(hdcScreen, cx1 - 1, cy1 + 1 + cy);
+    LineTo(hdcScreen, cx1 + 1 + cx, cy1 + 1 + cy);
+    LineTo(hdcScreen, cx1 + 1 + cx, cy1 - 1);
+    LineTo(hdcScreen, cx1 - 1, cy1 - 1);
     SelectObject(hdcScreen, hPenOld);
 
     // Bit block transfer into our compatible memory DC.
     // so the compatible bitmap contain the region of war3 screen
-    BitBlt(hdcMemDC, 0, 0, mapx, mapy, hdcScreen, mapx1, mapy1, SRCCOPY);
+    BitBlt(hdcMemDC, 0, 0, cx, cy, hdcScreen, cx1, cy1, SRCCOPY);
     // Gets the "bits" from the bitmap, and copies them into a buffer
     // that's pointed to by lpwar3image.
-    int scanline = GetDIBits(hdcMemDC, hbmScreen, 0, (UINT)mapy,
+    int scanline = GetDIBits(hdcMemDC, hbmScreen, 0, (UINT)cy,
                              lpwar3image, (BITMAPINFO *)&bi, DIB_RGB_COLORS);
     printf("\n [getbit] Copyed (%d) lines !(%d) bytes ! (%d) bits per pixel !",
            scanline, bi.biSizeImage, bi.biBitCount);
@@ -161,10 +162,10 @@ void ImageSave()
 
     int i, j, k;
     for (k = 0; k < 3; k++)
-        for (j = 0; j < mapy; j++)
-            for (i = 0; i < mapx; i++)
+        for (j = 0; j < cy; j++)
+            for (i = 0; i < cx; i++)
             {
-                lpTmp[i * mapy + j + k * mapx * mapy] = lpwar3image[(j * mapx + i) * 3 + 2 - k];
+                lpTmp[i * cy + j + k * cx * cy] = lpwar3image[(j * cx + i) * 3 + 2 - k];
             }
     FILE *file;
     fopen_s(&file, "image_arranged.bin", "wb");
