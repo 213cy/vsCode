@@ -86,7 +86,7 @@ int main()
     intA = 10 - 20.5;
     printf("%d %d %d \n", intA, intA - 12, intA - 12.5);
 
-    char buffer[8];
+    char buffer[20];
     strcpy(buffer, name);
     printf("%s\n", buffer);
 
@@ -95,6 +95,13 @@ int main()
     SYSTEMTIME s;
     GetLocalTime(&s);
     printf("It's %d/%d/%d %02d:%02d:%02d now.\n", s.wYear, s.wMonth, s.wDay, s.wHour, s.wMinute, s.wMinute);
+
+    HWND hWndWar3 = FindWindow(L"OsWindow", L"Warcraft III");
+    // MessageBox(NULL, L"Found Warcraft III\n", L"Succeed\n", MB_OK);
+    GetWindowTextA(hWndWar3, buffer, 15);
+    printf(" [init] FindWindow[%s] : (0x%x)(0x%x)\n", buffer, hWndWar3,(double*)hWndWar3);
+    double *r = (double*)hWndWar3;
+    // double r2 = *r;
 
     HWND hWnd = FindWindow(L"ConsoleWindowClass", NULL);
     printf("ConsoleWindow:0x%X ForegroundWindow:0x%X\n", hWnd, GetForegroundWindow());

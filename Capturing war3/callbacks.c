@@ -16,7 +16,6 @@
 int cx = image_width, cy = image_height;
 int cx1, cy1;
 
-
 HWND hWndScreen;
 HDC hdcScreen;
 HDC hdcMemDC;
@@ -48,6 +47,14 @@ HWND initCapture()
 
     // Retrieve the device context handle to get the client area of war3 window.
     hdcScreen = GetWindowDC(hWndScreen); // hdcScreen = GetDC(hWndScreen);
+    printf("\n [init] GetWindowDC : (0x%x)", hdcScreen);
+    ReleaseDC(hWndScreen, hdcScreen);
+    hdcScreen = GetDC(hWndScreen);
+    printf("\n [init] GetDC : (0x%x)", hdcScreen);
+    ReleaseDC(hWndScreen, hdcScreen);
+    hdcScreen = GetWindowDC(hWndScreen); // hdcScreen = GetDC(hWndScreen);
+    printf("\n [init] GetWindowDC : (0x%x)", hdcScreen);
+
     // Create a compatible bitmap from the Window DC.
     hbmScreen = CreateCompatibleBitmap(hdcScreen, cx, cy);
     // Create a compatible DC, which is used in a BitBlt from the window DC.
@@ -55,7 +62,7 @@ HWND initCapture()
     // Select the compatible bitmap into the compatible memory DC.
     SelectObject(hdcMemDC, hbmScreen);
 
-    hPen = CreatePen(PS_SOLID, 1, RGB(0, 255, 0));
+    hPen = CreatePen(PS_SOLID, 2, RGB(0, 255, 0));
 
     bi.biSize = sizeof(BITMAPINFOHEADER);
     bi.biWidth = cx;
@@ -91,9 +98,9 @@ HWND initCapture()
     hCaptureDoneEvent = CreateEvent(
         NULL,                 // default security attributes
         FALSE,                // manual-reset event
-        TRUE,                 // initial state is nonsignaled
+        TRUE,                 // initial state 
         L"CaptureDoneEvent"); // object name
-    printf("\n [init] CreatedEvent : (0x%x)\n", hCaptureDoneEvent);
+    printf("\n [init] CreatedEvent : (0x%x)", hCaptureDoneEvent);
 
     return hWndScreen;
 }
@@ -110,6 +117,12 @@ void endCapture()
 
     DeleteObject(hbmScreen);
     DeleteObject(hdcMemDC);
+    ReleaseDC(hWndScreen, hdcScreen);
+}
+void endCapture2()
+{
+    UnmapViewOfFile(lpwar3image);
+    CloseHandle(hMapFile);
     ReleaseDC(hWndScreen, hdcScreen);
 }
 

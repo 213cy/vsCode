@@ -75,8 +75,8 @@ DWORD WINAPI newThread(LPVOID lpParam)
                 break;
             case 3:
                 printf("\n = = = WM_HOTKEY C received, perserved hotkey");
-                mouse_event(MOUSEEVENTF_LEFTDOWN, 0, 0, 0, 0); // 按下
-                mouse_event(MOUSEEVENTF_LEFTUP, 0, 0, 0, 0);   //弹起
+                endCapture();
+
                 break;
             }
             continue;
@@ -112,7 +112,7 @@ int main()
         0,         // use default creation flags
         &TID);     // returns the thread identifier
     printf("\n # # # Create Thread(0x%x)...", hThreadCmd);
-    CloseHandle(hThreadCmd);
+    // CloseHandle(hThreadCmd);
 
     startCapture();
 
@@ -183,11 +183,15 @@ int main()
             m_InPut[1].mi.dwFlags = MOUSEEVENTF_LEFTUP;
             SendInput(2, m_InPut, sizeof(INPUT));
 
+            mouse_event(MOUSEEVENTF_LEFTDOWN, 0, 0, 0, 0); // 按下
+            mouse_event(MOUSEEVENTF_LEFTUP, 0, 0, 0, 0);   //弹起
+
             break;
         case 9:
-            printf("\n # # # exit program.");
+            printf("\n # # # exit program...");
+            BOOL bbb =TerminateThread(hThreadCmd, 0);
+            printf("\n # # # TerminateThread return value[0=fail]: (%d)", bbb  );
             endCapture();
-
             break;
         default:
             printf("\n # # # can't resloved your entered opcode (%d)\"%s\".", opcode, codestr);
