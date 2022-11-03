@@ -1,0 +1,2 @@
+这个现在是war3 hook 的原型 prototype
+找机会把它改成一般型的 hook

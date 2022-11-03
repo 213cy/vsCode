@@ -1,0 +1,15 @@
+https://docs.python.org/3/library/codecs.html#standard-encodings
+
+因为老版windows的console不支持utf-8,所以要在console里显示汉字
+要把cp设为gbk
+并且在编译时指定 "-fexec-charset=GBK" 的编译参数
+
+gbk=cp936
+
+console cp=cp65001 时:
+"一些utf-8汉字".encode('utf8').decode('gbk','ignore') == '涓浜泆tf-8姹夊瓧'
+"涓�浜泆tf-8姹夊瓧"
+
+console cp=cp437 时:
+"一些utf-8汉字".encode('utf8').decode('437','ignore') == 'Σ╕?Σ║?utf-8???σ?ù'
+"Σ╕?Σ║?utf-8???σ?ù"

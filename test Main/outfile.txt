@@ -1,0 +1,4 @@
+ [fprintf] This will go to the file 'outfile.txt'
+ [printf] fd_stdout=(1), FILE* stdout=(0xfefb2ab0),  FILE_stdout=(0x22fd70)
+ [printf] fd_stream=(1), FILE* stream=(0xfefb2ab0),  FILE_stream=(0x22fd70)
+ [fprintf] successfully reassigned

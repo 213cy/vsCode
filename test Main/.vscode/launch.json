@@ -3,9 +3,30 @@
     // Hover to view descriptions of existing attributes.
     // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
     "version": "0.2.0",
-    "configurations": [
+    "configurations": [        
         {
-            "name": "(Windows) 启动",
+            "name": "(gdb) 启动",
+            "type": "cppdbg",
+            "request": "launch",
+            "program": "${workspaceFolder}/bbb.exe",
+            "args": [],
+            "stopAtEntry": false,
+            "cwd": "${workspaceFolder}",
+            "environment": [],
+            "externalConsole": true,
+            "MIMode": "gdb",
+            "miDebuggerPath": "D:\\mingw64\\bin\\gdb.exe",
+            "setupCommands": [
+                {
+                    "description": "为 gdb 启用整齐打印",
+                    "text": "-enable-pretty-printing",
+                    "ignoreFailures": true
+                }
+            ]
+        },
+
+        {
+            "name": "编译并启动",
             "type": "cppvsdbg",
             "request": "launch",
             "program": "${workspaceFolder}/bbb.exe",
@@ -16,28 +37,26 @@
             "externalConsole": true,
             "preLaunchTask": "c 2 exe"
         },
-        
-
         {
-            "name": "g++.exe - 生成和调试活动文件",
-            "type": "cppdbg",
+            "name": "编译并调试",
+            "type": "cppdbg",//"cppvsdbg",
             "request": "launch",
-            "program": "${fileDirname}\\${fileBasenameNoExtension}.exe",
+            "program": "${workspaceFolder}\\bbb.exe",
             "args": [],
             "stopAtEntry": false,
             "cwd": "${workspaceFolder}",
             "environment": [],
             "externalConsole": true,
             "preLaunchTask": "c 2 exe",
-            "MIMode": "gdb",
-            "miDebuggerPath": "D:\\mingw64\\bin\\gdb.exe",
-            "setupCommands": [
-                {
-                    "description": "为 gdb 启用整齐打印",
-                    "text": "-enable-pretty-printing",
-                    "ignoreFailures": true
-                }
-            ],
+            // "MIMode": "gdb",
+            // "miDebuggerPath": "D:\\mingw64\\bin\\gdb.exe",
+            // "setupCommands": [
+            //     {
+            //         "description": "为 gdb 启用整齐打印",
+            //         "text": "-enable-pretty-printing",
+            //         "ignoreFailures": true
+            //     }
+            // ],
 
         }
     ]

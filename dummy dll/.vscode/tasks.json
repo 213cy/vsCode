@@ -1,0 +1,49 @@
+{
+	"version": "2.0.0",
+	"tasks": [        
+		{
+		"type": "shell",
+		"label": "dll.cpp => dll backup",
+		"command": "gcc",
+		"args": [
+			"-odummy.dll",
+			"-DDLL_EXPORTS",
+			"-shared",
+			"-g",
+			"-fexec-charset=GBK",   // 处理mingw中文编码问题
+			"-finput-charset=UTF-8",// 处理mingw中文编码问题
+			"dummy.cpp",
+			"-lWinmm",
+			"-Wl,--out-implib,dummy.lib",
+		],
+		"problemMatcher": [
+			"$gcc"
+		],
+		"group": "build"
+	},
+		{
+			"type": "shell",
+			"label": "dll.cpp => dll",
+			"command": "D:\\mingw64\\bin\\gcc.exe",
+			"args": [
+				"-DDLL_EXPORTS",
+				"-shared",
+				"-g",
+				"${file}",
+				"-o",
+				"${fileDirname}\\${fileBasenameNoExtension}.dll",
+				"-lNtdll",
+			],
+			"options": {
+				"cwd": "${workspaceFolder}"
+			},
+			"problemMatcher": [
+				"$gcc"
+			],
+			"group": {
+				"kind": "build",
+				"isDefault": true
+			}
+		}
+	]
+}

@@ -22,7 +22,7 @@ BEGIN
 END
 
 // Application manifest.
-//CREATEPROCESS_MANIFEST_RESOURCE_ID RT_MANIFEST "Application.manifest"
+CREATEPROCESS_MANIFEST_RESOURCE_ID RT_MANIFEST "Application.manifest"
 
 // Executable version information.
 VS_VERSION_INFO    VERSIONINFO

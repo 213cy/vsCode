@@ -1,0 +1,73 @@
+{
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "type": "shell",
+            "label": "dll.cpp => dll",
+            "command": "gcc",
+            "args": [
+                "-ohookdll.dll",
+                "-DDLL_EXPORTS",
+                "-shared",
+                "-g",
+                "-fexec-charset=GBK",   // 处理mingw中文编码问题
+                "-finput-charset=UTF-8",// 处理mingw中文编码问题
+                "hookdll.cpp",
+                // "-lWinmm",
+                "-Wl,--out-implib,hookdll.lib",
+            ],
+            "problemMatcher": [
+                "$gcc"
+            ],
+            "group": "build"
+        },
+        {
+            "type": "shell",
+            "label": "cpp+dll => exe",
+            "command": "gcc",
+            "args": [
+                "-g",
+                "-fexec-charset=GBK",   // 处理mingw中文编码问题
+                // "-fexec-charset=UTF-8",   // 处理mingw中文编码问题
+                "-finput-charset=UTF-8",// 处理mingw中文编码问题
+                "-ostarthook.exe",
+                "hookdll.dll",
+                "starthook.cpp",
+                // "-lWinmm"
+            ],
+            "dependsOn": [
+                "dll.cpp => dll"
+            ],
+            "options": {
+                "cwd": "${workspaceFolder}"
+            },
+            "problemMatcher": [
+                "$gcc"
+            ],
+            "group": {
+                "kind": "build",
+                "isDefault": true
+            }
+        },
+        {
+            "type": "shell",
+            "label": "cpp+lib(a) => exe",
+            "command": "gcc",
+            "args": [
+                "-ostarthook.exe",
+                "-g",
+                "starthook.cpp",
+                "-L.",
+                "-lhookdll"
+            ],
+            "dependsOn": [],
+            "options": {
+                "cwd": "${workspaceFolder}"
+            },
+            "problemMatcher": [
+                "$gcc"
+            ],
+            "group": "build"
+        }
+    ]
+}

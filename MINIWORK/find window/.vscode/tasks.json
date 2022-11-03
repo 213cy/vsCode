@@ -1,0 +1,28 @@
+{
+	"version": "2.0.0",
+	"tasks": [
+		{
+			"type": "shell",
+			"label": "build active cpp file",
+			"command": "gcc",
+			"args": [
+				// "-finput-charset=UTF-8", // 处理mingw中文编码问题
+				"-fexec-charset=GBK", // 处理mingw中文编码问题
+				"-o",
+				"findwin.exe",
+				"-g",
+				"findwin.cpp"
+			],
+			"options": {
+				"cwd": "${workspaceFolder}"
+			},
+			"problemMatcher": [
+				"$gcc"
+			],
+			"group": {
+				"kind": "build",
+				"isDefault": true
+			}
+		}
+	]
+}

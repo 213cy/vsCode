@@ -24,8 +24,7 @@ LRESULT CALLBACK MainWndProc(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam)
         }
         case ID_HELP:
         {
-            //PlaySound(L"C:\\Users\\Administrator\\Videos\\MagicSword.mp3", NULL, SND_FILENAME);
-            PlaySound(L"C:\\Users\\Administrator\\Videos\\ArchMage.wav", NULL, SND_FILENAME);
+            PlaySound(L"ArchMageYes.wav", NULL, SND_FILENAME);
             return 0;
         }
 

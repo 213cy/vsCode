@@ -8,8 +8,8 @@
 			"args": [
 				"-g",
 				"-o",
-				"myapplication.exe",
-				"test.o",
+				"myWinMain.exe",
+				"myWinMain.o",
 				"resource.o",
                 "callbacks.o",
                 "-lwinmm",
@@ -27,21 +27,21 @@
 				"isDefault": true
 			},
 			"dependsOn": [
-				"test build",
+				"windmain build",
 				"callback build",
 				"resource build"
 			]
 		},
 		{
 			"type": "shell",
-			"label": "test build",
+			"label": "windmain build",
 			"command": "gcc",
 			"args": [
 				"-g",
 				"-c",
-				"test.c",
+				"myWinMain.c",
 				"-o",
-				"test.o",
+				"myWinMain.o",
 				"-D",
 				"UNICODE",
 				"-D",

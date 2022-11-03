@@ -1,0 +1,3 @@
+	Edit
+新建.txt - 记事本	Notepad
+	#32769

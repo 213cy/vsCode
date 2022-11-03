@@ -1,0 +1,58 @@
+{
+	"version": "2.0.0",
+	"tasks": [
+		{
+			"type": "shell",
+			"label": "build active cpp file",
+			"command": "gcc",
+			"args": [
+				// "-finput-charset=UTF-8", // 处理mingw中文编码问题
+				"-fexec-charset=GBK", // 处理mingw中文编码问题
+				// "-fwide-exec-charset=GBK",
+				// "-finput-charset=GBK", //UTF-8",
+				// "-fexec-charset=UTF-8",
+				// "-fexec-charset=IBM437",
+				// "-fexec-charset=GBK",//ISO 8859-1", //UTF-8",
+				"-o",
+				"charset.exe",
+				"-g",
+				"charset.cpp"
+			],
+			"options": {
+				"cwd": "${workspaceFolder}"
+			},
+			"problemMatcher": [
+				"$gcc"
+			],
+			"group": {
+				"kind": "build",
+				"isDefault": true
+			}
+		},
+		{
+			"type": "shell",
+			"label": "xxxxxxxxx",
+			"command": "gcc",
+			"args": [
+				// "-finput-charset=UTF-8", // 处理mingw中文编码问题
+				// "-fexec-charset=GBK", // 处理mingw中文编码问题
+				// "-fwide-exec-charset=GBK",
+				// "-finput-charset=GBK", 
+				// "-fexec-charset=UTF-8",
+				// "-fexec-charset=IBM437",
+				// "-fexec-charset=GBK",//ISO 8859-1", //UTF-8",
+				"-o",
+				"charset2.exe",
+				"-g",
+				"charset.cpp"
+			],
+			"options": {
+				"cwd": "${workspaceFolder}"
+			},
+			"problemMatcher": [
+				"$gcc"
+			],
+			"group": "build",
+		}
+	]
+}
