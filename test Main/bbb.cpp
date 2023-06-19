@@ -39,9 +39,11 @@ int main()
     intA = 10 - 20.5;
     printf("%d %d %d \n", intA, intA - 12, intA - 12.5); // -10 -22 0
 
+    printf("%d \n", GetLastError()); 
+    Beep(400,2000);
+    printf("%d \n", GetLastError()); 
 
-
-    // MessageBox(NULL, L"content", L"title Caption", MB_OK);
+    MessageBox(NULL, L"contenttttt", L"title Caption", MB_OK);
 
     SYSTEMTIME s;
     GetLocalTime(&s);
