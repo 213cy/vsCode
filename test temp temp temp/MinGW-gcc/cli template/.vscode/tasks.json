@@ -1,30 +1,9 @@
 {
     "tasks": [
         {
-            "type": "shell",
-            "label": "build active c file",
-            "command": "gcc.exe",
-            "args": [
-                "-g",
-                "${fileBasename}",
-                "-o",
-                "${fileBasenameNoExtension}.exe"
-            ],
-            "options": {
-                "cwd": "${workspaceFolder}"
-            },
-            "problemMatcher": [
-                "$gcc"
-            ],
-            "group": {
-                "kind": "build",
-                "isDefault": true
-            }
-        },
-        {
             "type": "cppbuild",
-            "label": "build c++ file",
-            "command": "g++.exe",
+            "label": "by213cy gcc",
+            "command": "D:/mingw-w64/bin/gcc.exe",
             "args": [
                 "-fdiagnostics-color=always",
                 "-g",
@@ -33,12 +12,36 @@
                 "${fileDirname}\\${fileBasenameNoExtension}.exe"
             ],
             "options": {
-                "cwd": "${fileDirname}"
+                "cwd": "D:/mingw-w64/bin"
+            },
+            "problemMatcher": [
+                "$gcc"
+            ],
+            "group": {
+                "kind": "build",
+                "isDefault": true
+            },
+            // "detail": "XXXXXXXXXXXXX"
+        },
+        {
+            "type": "cppbuild",
+            "label": "by213cy gcc 222222222",
+            "command": "D:/mingw-w64/bin/gcc.exe",
+            "args": [
+                "-fdiagnostics-color=always",
+                "-g",
+                "${file}",
+                "-o",
+                "${fileDirname}\\${fileBasenameNoExtension}.exe"
+            ],
+            "options": {
+                "cwd": "D:/mingw-w64/bin"
             },
             "problemMatcher": [
                 "$gcc"
             ],
             "group": "build",
+            "detail": "222222222222222"
         }
     ],
     "version": "2.0.0"

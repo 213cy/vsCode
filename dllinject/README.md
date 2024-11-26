@@ -1,1 +1,0 @@
-https://resources.infosecinstitute.com/topic/using-createremotethread-for-dll-injection-on-windows/

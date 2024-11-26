@@ -5,7 +5,21 @@
     "version": "0.2.0",
     "configurations": [
         {
-            "name": "gcc.exe - 生成和调试活动文件",
+            "name": "c++ launch mymymy",
+            "type": "cppdbg",
+            "request": "launch",
+            "program": "${workspaceFolder}/ChineseCharInC++.exe",
+            "args": [],
+            "stopAtEntry": false,
+            "cwd": "${fileDirname}",
+            "environment": [],
+            "externalConsole": true,
+            "preLaunchTask": "build c++ file"
+        },
+        
+        
+        {
+            "name": "gcc build c file",
             "type": "cppdbg",
             "request": "launch",
             "program": "${fileDirname}\\${fileBasenameNoExtension}.exe",
@@ -15,7 +29,7 @@
             "environment": [],
             "externalConsole": true,
             "MIMode": "gdb",
-            "miDebuggerPath": "D:\\mingw64\\bin\\gdb.exe",
+            "miDebuggerPath": "gdb.exe",
             "setupCommands": [
                 {
                     "description": "为 gdb 启用整齐打印",
@@ -23,7 +37,7 @@
                     "ignoreFailures": true
                 }
             ],
-            "preLaunchTask": "build active file"
+            "preLaunchTask": "build active c file"
         }
     ]
 }

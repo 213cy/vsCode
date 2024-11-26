@@ -1,0 +1,25 @@
+C:\Windows\System32\notepad.exe
+hDLL (0)= 0x63fc0000  hKernel32 = 0x76e20000 
+[2024-11-26 01:17:04.215] >>>    DLL process attach
+[2024-11-26 01:17:16.711]           <<< DLL thread detach
+E:\Documents\vsCode\dllinject\injectexe.exe
+hDLL (0)= 0x63fc0000  hKernel32 = 0x76e20000 
+[2024-11-26 01:18:18.050] >>>    DLL process attach
+[2024-11-26 01:19:08.345]    <<< DLL process detach
+[2024-11-26 01:19:35.333]    <<< DLL process detach
+C:\Windows\System32\notepad.exe
+hDLL (0)= 0x63fc0000  hKernel32 = 0x76e20000 
+[2024-11-26 01:19:51.635] >>>    DLL process attach
+[2024-11-26 01:20:04.489]           <<< DLL thread detach
+[2024-11-26 01:20:10.136]       >>>    DLL thread attach
+[2024-11-26 01:20:11.525]           <<< DLL thread detach
+[2024-11-26 01:20:11.540]    <<< DLL process detach
+C:\Windows\System32\notepad.exe
+hDLL (0)= 0x63fc0000  hKernel32 = 0x77930000 
+[2024-11-26 13:35:31.222] >>>    DLL process attach
+[2024-11-26 13:35:33.702]           <<< DLL thread detach
+C:\Windows\System32\notepad.exe
+hDLL (0)= 0x63fc0000  hKernel32 = 0x77930000 
+[2024-11-26 13:36:33.296] >>>    DLL process attach
+[2024-11-26 13:36:35.909]           <<< DLL thread detach
+[2024-11-26 13:36:39.972]    <<< DLL process detach

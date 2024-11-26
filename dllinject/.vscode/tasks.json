@@ -4,12 +4,13 @@
         {
             "type": "shell",
             "label": "injectdll",
-            "command": "g++",
+            "command": "gcc",
             "args": [
                 "-o",
                 "injectdll.dll",
                 "-shared",
-                "injectdll.cpp"
+                "-g",
+                "injectdll.c"
             ],
             "options": {
                 "cwd": "${workspaceFolder}"
@@ -22,15 +23,42 @@
         {
             "type": "shell",
             "label": "injectmain",
-            "command": "g++",
+            "command": "gcc",
             "args": [
                 "-o",
                 "injectexe.exe",
+                "-finput-charset=utf-8",
+                "-fexec-charset=utf-8",
                 "-g",
-                "injectexe.cpp"
+                "injectexe.c"
             ],
             "options": {
                 "cwd": "${workspaceFolder}"
+            },
+            "problemMatcher": [
+                "$gcc"
+            ],
+            "group":  "build"
+        },
+        {
+          "label": "compound",
+          "dependsOn": ["injectmain", "injectdll"]
+        },
+        {
+            "type": "cppbuild",
+            "label": "common",
+            "command": "gcc.exe",
+            "args": [
+                "-fdiagnostics-color=always",
+                "-g",
+                "${file}",
+                "-finput-charset=utf-8",
+                "-fexec-charset=utf-8",
+                "-o",
+                "${fileDirname}\\${fileBasenameNoExtension}.exe"
+            ],
+            "options": {
+                "cwd": "${fileDirname}"
             },
             "problemMatcher": [
                 "$gcc"

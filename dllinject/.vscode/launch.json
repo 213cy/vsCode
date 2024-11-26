@@ -6,17 +6,17 @@
     "configurations": [
             
         {
-            "name": "g++.exe - build and debug",
+            "name": "mygcc - build and debug",
             "type": "cppdbg",
             "request": "launch",
-            "program": "${fileDirname}\\${fileBasenameNoExtension}.exe",
+            "program": "${workspaceFolder}\\injectexe.exe",
             "args": [],
-            "stopAtEntry":  true,
+            "stopAtEntry":  false,
             "cwd": "${workspaceFolder}",
             "environment": [],
-            "externalConsole": false,
-            "MIMode": "gdb",
-            "miDebuggerPath": "D:\\mingw64\\bin\\gdb.exe",
+            "externalConsole": true,
+            // "MIMode": "gdb",
+            // "miDebuggerPath": "D:\\mingw-w64\\bin\\gdb.exe",
             "setupCommands": [
                 {
                     "description": "为 gdb 启用整齐打印",
@@ -24,7 +24,19 @@
                     "ignoreFailures": true
                 }
             ],
-            "preLaunchTask": "C/C++: g++.exe build active file"
+            "preLaunchTask": "compound",
+        },
+        {
+            "name": "Launch without debugging",
+            "type": "cppdbg", // Use "shell" to launch a program via the shell
+            "request": "launch",
+            "program": "${fileDirname}\\${fileBasenameNoExtension}.exe", // Path to your executable
+            "args": [], // Optional: Command line arguments for aaa.exe
+            "stopAtEntry":  false,
+            "cwd": "${workspaceFolder}",
+            "externalConsole": true,
+            "preLaunchTask": "common"
+            // "preLaunchTask": "injectmain"
         }
     ]
 }

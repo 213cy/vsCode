@@ -1,0 +1,67 @@
+{
+	"version": "2.0.0",
+	"windows": {
+		"options": {
+			"shell": {
+				"executable": "cmd.exe",
+				"args": [
+					"/E:ON",
+					"/V:ON",
+					"/T:1E",
+					"/C",
+					"D:/\"Program Files/Microsoft SDKs/Windows/v7.1/Bin/SetEnv.cmd\"",
+					// C:\Windows\System32\cmd.exe /E:ON /V:ON /T:0E /K 
+					// "D:\Program Files\Microsoft SDKs\Windows\v7.1\Bin\SetEnv.cmd"
+					// The path to VsDevCmd.bat depends on the version of Visual Studio you have installed.
+					//   "/C",
+					//   "\"C:/Program Files (x86)/Microsoft Visual Studio/2019/Community/Common7/Tools/VsDevCmd.bat\"",
+					"&&"
+				]
+			}
+		}
+	},
+	"tasks": [
+		{
+			"type": "shell",
+			"label": "cl.exe in SetEnv.cmd",
+			"command": "cl.exe",
+			"args": [
+				"/Zi",
+				"/EHsc",
+				"/nologo",
+				// "/subsystem:windows",
+				"/Fe${fileDirname}\\${fileBasenameNoExtension}.exe",
+				"${file}"
+			],
+			"options": {
+				"cwd": "${fileDirname}"
+			},
+			"problemMatcher": [
+				"$msCompile"
+			],
+			"group": {
+				"kind": "build",
+				"isDefault": true
+			},
+			"detail": "by213cy"
+		},
+		{
+			"type": "shell",
+			"label": "echo variables in cmd",
+			// "command": "echo fileDirname=${fileDirname} & echo fileBasenameNoExtension=${fileBasenameNoExtension} & echo file=${file}",
+			"command": [
+				"echo fileDirname=${fileDirname} &",
+				"echo fileBasenameNoExtension=${fileBasenameNoExtension} &",
+				"echo file=${file}"
+			],
+			// "args": [
+			// 	""
+			// ],
+			// "options": {
+			// 	"cwd": "${fileDirname}"
+			// },
+			"group": "build",
+			"detail": "by213cy"
+		}
+	]
+}
